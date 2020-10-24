@@ -120,10 +120,10 @@ dist
 # ---------------
 
 # config files
-config/config.ini
-config/config*.ini;
+config/config.toml
 
 
 # intellij
 .idea/
 
+**/serviceAccountKey.json

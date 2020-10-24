@@ -1,0 +1,17 @@
+[authentication]
+botToken = "bot token goes here"
+
+[permissions]
+botOwner = "a user id"
+botDevs = ["a user id", "another user id"]
+botAdmins = ["a user id", "another user id"]
+
+[chat]
+botPrefix = "any prefix"
+botAdminChannel = "channel id"
+botVerificationChannel = "channel id"
+
+[core]
+botDeleteMessages = "yes" # delete messages sent by bot
+botDeleteCommands = "yes" # delete commands sent by user
+botMessageTimeout = "10" # time in seconds
