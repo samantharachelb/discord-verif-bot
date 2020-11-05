@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: verifbot-config
+  namespace: shitty-discord-bots
+data:
+  botPrefix: "vf;"
+  botAdminChannel: "773980608875200525"
+  botAdminRoles: "756572997019500554 754472026659618977"
+  botVerificationChannel: "773980329731424297"
+  botDeleteMessages: "yes"
+  botDeleteCommands: "yes"
+  botMessageTimeout: "15"
+

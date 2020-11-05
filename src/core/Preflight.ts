@@ -1,6 +1,8 @@
 const winston = require('winston');
 const { transports } = winston;
-const logger = require('@src/core/logging');
+import { Log } from '@src/core/Log';
+const logger = Log.logger;
+
 require('winston-daily-rotate-file');
 import fs from "fs";
 import path from 'path';
@@ -19,7 +21,7 @@ export abstract class Preflight {
         });
 
         logFileTransport.on('rotate', function(oldFilename: string, newFilename: string) {
-
+            Log.rotateLogs(oldFilename);
         });
 
         logger.add(logFileTransport);

@@ -1,0 +1,85 @@
+apiVerison: apps/v1
+kind: Deployment
+metadata:
+  name: verifbot
+  namespace: shitty-discord-bots
+  labels:
+    app.kubernetes.io/name: verifbot
+    app.kubernetes.io/instance: verifbot
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: verifbot
+  strategy:
+    type: RollingUpdate
+    maxSurge: 1
+    maxUnavailable: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: verifbot
+        app.kubernetes.io/instance: verifbot
+    spec:
+      containers:
+        - name: verifbot
+          image: gcr.io/shitty-discord-bots/verifbot:latest
+          imagePullPolicy: Always
+          env:
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: BOT_OWNER
+              valueFrom:
+                secretKeyRef:
+                  name: verifbot-secrets
+                  key: bot_owner
+            - name: BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: verifbot-secrets
+                  key: bot_token
+            - name: BOT_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botPrefix
+            - name: BOT_ADMIN_CHANNEL
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botAdminChannel
+            - name: BOT_ADMIN_ROLES
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botAdminRoles
+            - name: BOT_VERIFICATION_CHANNEL
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botVerificationChannel
+            - name: BOT_DELETE_MESSAGES
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botDeleteMessages
+            - name: BOT_DELETE_COMMANDS
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botDeleteCommands
+            - name: BOT_MESSAGE_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botMessageTimeout
+          volumeMounts:
+            - name: service-account
+              mountPath: /app/config/serviceAccountKey.json
+              readOnly: true
+      volumes:
+        - name: service-account
+          secret:
+            secretName: firebase-secret
