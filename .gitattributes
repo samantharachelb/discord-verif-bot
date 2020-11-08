@@ -1,4 +1,6 @@
-*.json -linguist-detected
+package.json -linguist-detected
+package-lock.json linguist-generated
+tsconfig.json -linguist-detected
 .babelrc -linguist-detected
 .eslintignore -linguist-detected
 .eslintrc.js -linguist-detected

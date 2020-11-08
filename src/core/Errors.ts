@@ -13,3 +13,11 @@ export class ConfigError extends Error {
         this.message = message;
     }
 }
+
+export class AuthenticationError extends Error {
+    constructor(message: any | undefined) {
+        super();
+        this.name = "AuthenticationError";
+        this.message = message;
+    }
+}

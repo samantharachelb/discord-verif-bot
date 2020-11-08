@@ -2,8 +2,6 @@ const winston = require('winston');
 const { createLogger, format, transports } = winston;
 const { combine, printf, colorize } = format;
 import moment from 'moment';
-import path from 'path';
-import CloudStorage from '@src/core/cloud/CloudStorage';
 
 
 export abstract class Log {
@@ -33,13 +31,5 @@ export abstract class Log {
             })
         ],
         exitOnError: true
-    })
-
-    static rotateLogs(oldFilename: string): void {
-        const filePath = path.join(process.cwd(), oldFilename);
-        CloudStorage.uploadFile(filePath)
-            .catch((err: Error) => {
-                this.logger.warn(err.toString())
-            })
-    }
+    });
 }
