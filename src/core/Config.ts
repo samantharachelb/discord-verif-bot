@@ -89,10 +89,10 @@ export default abstract class Config {
             this.botMessageTimeout = parseInt(process.env.BOT_MESSAGE_TIMEOUT) * 1000;
         }
 
-        logger.debug(this.botToken)
-        logger.debug(this.botOwner)
-        logger.debug(this.botAdminRoles)
-        logger.debug(this.botAdminChannel);
+        logger.debug(`Bot Token: ${this.botToken}`);
+        logger.debug(`Bot Owner: ${this.botOwner}`);
+        logger.debug(`Admin Roles: ${this.botAdminRoles}`);
+        logger.debug(`Admin Channel: ${this.botAdminChannel}`);
 
     }
 

@@ -16,6 +16,7 @@ export abstract class Cleanup {
             embed.setTitle("Insufficient Permissions")
             embed.setDescription(`${replyTo}\n I'm sorry Dave, I can't let you do that.`);
             embed.setColor(10027008)
+            logger.info(`User ${message.author.id} attempted to use a command that requires admin permissions`)
             return await sendMessage(message, embed);
         }
 
