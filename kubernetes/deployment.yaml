@@ -1,4 +1,4 @@
-apiVerison: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: verifbot
@@ -12,8 +12,9 @@ spec:
       app.kubernetes.io/name: verifbot
   strategy:
     type: RollingUpdate
-    maxSurge: 1
-    maxUnavailable: 1
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   minReadySeconds: 10
   template:
     metadata:
@@ -82,9 +83,10 @@ spec:
                   key: botLanguage
           volumeMounts:
             - name: service-account
-              mountPath: /app/config/serviceAccountKey.json
+              mountPath: /app/config
               readOnly: true
       volumes:
         - name: service-account
           secret:
+            namespace:
             secretName: firebase-secret
