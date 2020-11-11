@@ -1,4 +1,4 @@
-FROM node:14-apline as BUILD_IMAGE
+FROM node:14-alpine as BUILD_IMAGE
 RUN apk update && apk add yarn curl bash python g++ make && rm -rf /var/cache/apk/*
 
 RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
