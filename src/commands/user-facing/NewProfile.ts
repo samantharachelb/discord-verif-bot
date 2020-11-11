@@ -1,12 +1,16 @@
-import { Client, Command, CommandMessage, Description } from '@typeit/discord';
+import { Command, CommandMessage, Description, Infos } from '@typeit/discord';
 import sendMessage from "@utils/sendMessage"
 import newEmbed from "@utils/embeds";
 import Firebase from "@src/core/cloud/Firebase";
 import { Profile } from "@src/core/Profile";
 
 export abstract class NewProfile {
-    @Description("Creates a new verification Profile")
     @Command("newprofile")
+    @Infos({
+        category: "verification",
+        usage: "vf;newprofile"
+    })
+    @Description("Creates a new verification Profile")
     async create(message: CommandMessage) {
         const embed = newEmbed(message);
         const replyTo = `<@${message.author.id}>`;

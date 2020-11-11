@@ -11,4 +11,5 @@ data:
   botDeleteMessages: "yes"
   botDeleteCommands: "yes"
   botMessageTimeout: "15"
+  botLanguage: "en_CA"
 

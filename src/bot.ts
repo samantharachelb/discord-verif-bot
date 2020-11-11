@@ -5,6 +5,7 @@ import Config from "@src/core/Config";
 const logger = require("@src/core/Log").Log.logger;
 import { Permissions } from "@src/core/Permissions";
 import { Profile } from "@src/core/Profile";
+import HCommands from "@src/helpers/HCommands"
 
 @Discord(Config.botPrefix, {
     import: [
@@ -26,6 +27,8 @@ export abstract class Bot {
         bot.user.setActivity(`${Config.botPrefix}help`, {
             type: "LISTENING"
         });
+
+        HCommands.indexCommands();
     }
 
     @On("guildMemberAdd")

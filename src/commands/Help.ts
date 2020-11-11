@@ -1,30 +1,62 @@
-import { Client, Command, CommandMessage, Description } from '@typeit/discord';
+import { Command, CommandMessage, Description, Infos } from '@typeit/discord';
+import { MessageEmbed } from "discord.js";
 import sendMessage from "@utils/sendMessage"
 import newEmbed from "@utils/embeds";
+import HCommands from "@src/helpers/HCommands";
+import Config from "@src/core/Config";
+const logger = require("@src/core/Log").Log.logger;
+const jsonQuery = require('json-query');
 
 export abstract class Help {
+    private static embed: MessageEmbed;
+    private static replyTo: string;
+
+    @Command("help :arg")
+    @Infos({
+        category: "general",
+        usage: "help [category|commandname](optional)"
+    })
     @Description("displays command help information")
-    @Command("help :cmdName")
     async help(message: CommandMessage) {
-        const cmdName = message.args.cmdName;
-        const embed = newEmbed(message)
-        const commandDict: any = {};
-        Client.getCommands().forEach((item: any) => {
-            commandDict[item.commandName.split(" ")[0]] = item.description || "";
-        });
+        const arg = message.args.arg;
 
-        if (cmdName) {
-            embed.setTitle(`Help | ${message.prefix}${cmdName}`)
+        Help.replyTo = `<@${message.author.id}>`;
+        Help.embed = new MessageEmbed;
+        Help.embed.setTitle("Help");
+
+        if (!arg) {
+            await Help.displayAllCategories(message);
+        } else if (HCommands.categories.has(arg)){
+            await Help.displayCommandCategory(message, arg);
         } else {
-            embed.setTitle("Help");
-            let commandList = "";
-            for (const item in commandDict) {
-                const commandName = `\`${item}\`\t`;
-                commandList = commandList + commandName
-            }
-            embed.addField("Available Commands", `${commandList}`);
+            await Help.displaySpecificCommand(message, arg)
         }
+    }
 
-        await sendMessage(message, embed, false);
+    private static async displayAllCategories(message: any): Promise<void> {
+        HCommands.categories.forEach((item: any) => {
+            Help.embed.addField(`**${item}**`, `\`${Config.botPrefix}help ${item}\``);
+        })
+        await sendMessage(message, Help.embed, false);
+    }
+
+    private static async displayCommandCategory(message: any, category: string): Promise<void> {
+        let commandList = jsonQuery(`[*category=${category}]`, {
+            data: HCommands.commandList
+        }).value;
+
+        for (let index = 0; index < commandList.length; index++) {
+            Help.embed.addField(`\`${Config.botPrefix}${commandList[index].name}\``, commandList[index].description);
+        }
+        await sendMessage(message, Help.embed, false);
+    }
+
+    public static async displaySpecificCommand(message: any, commandName: string): Promise<void> {
+        let command = jsonQuery(`[name=${commandName}]`, {
+            data: HCommands.commandList
+        }).value;
+        Help.embed.setTitle(command.name);
+        Help.embed.addField(command.description, `Usage: \`${command.usage}\``)
+        await sendMessage(message, Help.embed);
     }
 }

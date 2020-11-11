@@ -1,0 +1,18 @@
+{
+    "commands": {
+        "error-generic": "Une erreur est survenue.",
+        "administrative": {
+            "no-permissions": "Vous n'êtes pas autorisé à faire ça.",
+            "ban": {
+                "ban-no-user": "Vous devez spécifier quel utilisateur doit être banni du serveur.",
+                "ban-no-reason": "Vous devez spécifier la raison pour laquelle cet utilisateur est banni du serveur."
+            },
+            "mute": {
+                "mute-no-user": "Vous devez spécifier quel utilisateur doit être mis sous silence."
+            },
+            "cleanup": {
+                "cleanup-missing-num": "Vous devez spécifier le nombre de messages à supprimer."
+            }
+        }
+    }
+}

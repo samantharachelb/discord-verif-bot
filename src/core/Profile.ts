@@ -18,9 +18,19 @@ export abstract class Profile {
         logger.info(`Removed profile for user id: ${id}`)
     }
 
-    static async ban(id: any) {
+    static async ban(id: any, reason: string) {
         const profileDocRef = this.db.collection('profiles').doc(id);
         const shitlistDocRef = this.db.collection('shitlist');
+        const snapshot = await profileDocRef.get();
+        if(snapshot.exists) {
+            await shitlistDocRef.set(snapshot.data());
+            await shitlistDocRef.update({
+                reason: reason,
+                status: "banned"
+            })
+        }
+
+        await this.remove(id);
 
         logger.info(`Added profile to shitlist for user id: ${id}`)
     }

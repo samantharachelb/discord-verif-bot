@@ -7,6 +7,7 @@ const logger = require("@src/core/Log").Log.logger;
 export default abstract class Config {
     static config: { [p: string]: any} = [];
     static configDir = path.join(process.cwd(), "config");
+    static localeData: any;
 
     // Firebase Stuff
     static firebaseServiceAccount: any;
@@ -30,6 +31,7 @@ export default abstract class Config {
     static botDeleteMessages: boolean;
     static botDeleteCommands: boolean;
     static botMessageTimeout: number;
+    static botLanguage: string;
 
     static loadConfigFiles(): void {
         // check for GCP service account key
@@ -89,10 +91,12 @@ export default abstract class Config {
             this.botMessageTimeout = parseInt(process.env.BOT_MESSAGE_TIMEOUT) * 1000;
         }
 
-        logger.debug(this.botToken)
-        logger.debug(this.botOwner)
-        logger.debug(this.botAdminRoles)
-        logger.debug(this.botAdminChannel);
+        this.botLanguage = process.env.BOT_LANGUAGE || "en_CA";
+
+        logger.debug(`Bot Token: ${this.botToken}`);
+        logger.debug(`Bot Owner: ${this.botOwner}`);
+        logger.debug(`Admin Roles: ${this.botAdminRoles}`);
+        logger.debug(`Admin Channel: ${this.botAdminChannel}`);
 
     }
 

@@ -121,10 +121,9 @@ dist
 
 # config files
 config/config.toml
-
+config/serviceAccountKey.json
 
 # intellij
 .idea/
 
-**/serviceAccountKey.json
-**/secrets.yaml
+kubernetes/secrets.yaml

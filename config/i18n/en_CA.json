@@ -1,0 +1,23 @@
+{
+  "commands": {
+    "administrative": {
+      "ban": {
+        "ban-no-user": "You must specify which user to ban",
+        "ban-no-reason": "You must specify the reason why this user is being banned.",
+        "ban-success": "User was successfully sent to the shadow realm"
+      },
+      "mute": {
+        "mute-no-user": "You must specify which user to mute.",
+        "mute-success": "User has been muted."
+      },
+      "cleanup": {
+        "cleanup-missing-num": "You must specify the number of messages to delete.",
+        "cleanup-success": "messages cleaned up."
+      }
+    }
+  },
+  "generics": {
+    "no-permission": "You're not allowed to do that.",
+    "error": "An error has occurred."
+  }
+}
