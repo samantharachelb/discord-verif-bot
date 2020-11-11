@@ -3,6 +3,7 @@ import sendMessage from "@utils/sendMessage";
 import newEmbed from "@utils/embeds";
 import Firebase from "@src/core/cloud/Firebase";
 import { Profile } from "@src/core/Profile";
+import Config from "@src/core/Config";
 
 export abstract class Ban {
     @Description("Bans a User")
@@ -18,7 +19,7 @@ export abstract class Ban {
         embed.setTitle("Ban User");
 
         if (!message.mentions.users.first()) {
-            embed.setDescription(`${replyTo} you must specify which user is to be sent to the shadow realm`)
+            embed.setDescription(`${replyTo} ${Config.localeData['']}`)
             return await sendMessage(message, embed);
         } else {
             // @ts-ignore: already checked for in the previous step

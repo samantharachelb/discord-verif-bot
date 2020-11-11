@@ -16,6 +16,7 @@ export abstract class Main {
         Preflight.loadConfig();
         Preflight.initFirebase();
         Preflight.setVars();
+        Preflight.localize();
 
         logger.info(`Starting Verifbot version: ${Constants.version}`);
 

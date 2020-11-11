@@ -1,0 +1,18 @@
+{
+  "commands": {
+    "error-generic": "An error has occurred.",
+    "administrative": {
+      "no-permissions": "You're not allowed to do that.",
+      "ban": {
+        "ban-no-user": "You must specify which user to ban",
+        "ban-no-reason": "You must specify the reason why this user is being banned."
+      },
+      "mute": {
+        "mute-no-user": "You must specify which user to mute."
+      },
+      "cleanup": {
+        "cleanup-missing-num": "You must specify the number of messages to delete."
+      }
+    }
+  }
+}
