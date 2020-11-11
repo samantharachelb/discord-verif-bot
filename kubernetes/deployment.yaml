@@ -75,6 +75,11 @@ spec:
                 configMapKeyRef:
                   name: verifbot-config
                   key: botMessageTimeout
+            - name: BOT_LANGUAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: verifbot-config
+                  key: botLanguage
           volumeMounts:
             - name: service-account
               mountPath: /app/config/serviceAccountKey.json

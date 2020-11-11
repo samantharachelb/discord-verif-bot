@@ -125,3 +125,5 @@ config/serviceAccountKey.json
 
 # intellij
 .idea/
+
+kubernetes/secrets.yaml

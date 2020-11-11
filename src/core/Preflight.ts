@@ -26,6 +26,5 @@ export abstract class Preflight {
 
     static localize(): void {
         Locale.loadLocalizationDataFile(Config.botLanguage);
-        Locale.updateLocaleInfo();
     }
 }
