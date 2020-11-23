@@ -16,7 +16,10 @@ FROM node:14-alpine
 WORKDIR /app
 COPY --from=BUILD_IMAGE /app/dist ./dist
 COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
-COPY package.json ./
-COPY config/i18n ./config/i18n
+COPY --from=BUILD_IMAGE /app/config .
+COPY package.json .
+
+RUN ls -la /app/config/*
+
 CMD ["node", "dist"]
 

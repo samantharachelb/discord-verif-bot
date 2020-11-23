@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix",
-    "dev": "nodemon --require dotenv/config --exec babel-node --trace-warnings --extensions '.ts' src/app.ts",
+    "dev": "nodemon --require dotenv/config --exec babel-node --trace-warnings --extensions '.ts' src/index.ts",
     "build:clean": "rm -rf dist/ && mkdir dist",
     "build:bot": "babel src --out-dir dist/ --extensions '.ts'",
     "build": "npm run build:clean && npm run build:bot",
