@@ -15,10 +15,11 @@ export default abstract class Locale {
         if(!fs.existsSync(this.languageFile)) {
             logger.warn(`Could not find localization data for locale: ${language}. Falling back to default (en_CA)`);
             this.languageFile = path.join(process.cwd(), "config", "i18n", 'en_CA.json');
+        } else {
+            this.localeData = JSON.parse(fs.readFileSync(this.languageFile, {
+                encoding: "utf8"
+            }));
         }
-        this.localeData = JSON.parse(fs.readFileSync(this.languageFile, {
-            encoding: "utf8"
-        }));
         logger.debug({data: this.localeData});
     }
 }

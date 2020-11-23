@@ -1,12 +1,14 @@
 import Firebase from "@src/core/cloud/Firebase";
 const logger = require("@src/core/Log").Log.logger;
+const jsonQuery = require('json-query');
+import {Constants} from "@src/core/Constants";
 
 export abstract class Profile {
     static db = Firebase.datastore;
     static async create(id: string) {
         const docRef = this.db.collection('profiles').doc(id);
         await docRef.set({
-            status: "pending",
+            status: "unverified",
             discord_id: id
         });
         logger.info(`Created profile for user id: ${id}`)
@@ -16,6 +18,30 @@ export abstract class Profile {
         const docRef = this.db.collection('profiles').doc(id);
         await docRef.delete();
         logger.info(`Removed profile for user id: ${id}`)
+    }
+
+    static async createChannel(message: any) {
+        message.guild?.channels?.create(message.author.id, {
+            type: "text",
+            permissionOverwrites: [
+                {
+                    id: message.guild.id,
+                    deny: ["READ_MESSAGE_HISTORY", "VIEW_CHANNEL"]
+                },
+                {
+                    id: message.author.id,
+                    allow: ["VIEW_CHANNEL", "READ_MESSAGE_HISTORY", "EMBED_LINKS", "SEND_MESSAGES"]
+                },
+                {
+                    id: Constants.botID,
+                    allow: ["VIEW_CHANNEL", "READ_MESSAGE_HISTORY", "EMBED_LINKS", "SEND_MESSAGES"]
+                }
+            ]
+        });
+    }
+
+    static async removeChannel(message: any) {
+        message.channel.delete()
     }
 
     static async ban(id: any, reason: string) {

@@ -6,7 +6,6 @@ RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash 
 WORKDIR /app
 COPY package-lock.json .
 COPY --chown=node:node . .
-RUN ls -la ./*
 
 RUN npm ci
 RUN npm run build
@@ -18,6 +17,7 @@ WORKDIR /app
 COPY --from=BUILD_IMAGE /app/dist/ ./dist
 COPY --from=BUILD_IMAGE /app/node_modules/ ./node_modules
 COPY --from=BUILD_IMAGE /app/config/ ./config
+RUN ls -la /app/config/*
 
 CMD ["node", "dist"]
 

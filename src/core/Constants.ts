@@ -13,4 +13,5 @@ export abstract class Constants {
             }
         }
     }
+    static botID: string;
 }

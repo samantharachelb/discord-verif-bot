@@ -1,6 +1,6 @@
 import {Command, CommandMessage, Description, Infos} from '@typeit/discord';
 import { MessageEmbed } from "discord.js";
-import { Constants } from "@src/Core/constants";
+import { Constants } from "@src/core/Constants";
 import sendMessage from "@utils/sendMessage"
 
 export abstract class About {

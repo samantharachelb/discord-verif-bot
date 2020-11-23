@@ -22,12 +22,14 @@ export abstract class NewProfile {
 
         if(!profileDoc.exists) {
             await Profile.create(message.author.id);
+            message.guild?.channels?.create(message.author.id, { type: "text"});
             embed.setTitle("New Profile");
             embed.setDescription(`${replyTo} a profile has been created for you.`);
             return await sendMessage(message, embed);
         } else {
             embed.setTitle("New Profile")
-            embed.setDescription(`${replyTo} you already have a profile.`)
+            embed.setDescription(`${replyTo} you already have a profile. Use the command \`vf;editprofile\` to make changes.`)
+            return await sendMessage(message, embed);
         }
     }
 }
