@@ -4,8 +4,9 @@ RUN apk update && apk add yarn curl bash python g++ make && rm -rf /var/cache/ap
 RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
 
 WORKDIR /app
-COPY package-lock.json ./
+COPY package-lock.json .
 COPY --chown=node:node . .
+RUN ls -la ./*
 
 RUN npm ci
 RUN npm run build
@@ -14,12 +15,9 @@ RUN /usr/local/bin/node-prune
 
 FROM node:14-alpine
 WORKDIR /app
-COPY --from=BUILD_IMAGE /app/dist ./dist
-COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
-COPY --from=BUILD_IMAGE /app/config .
-COPY package.json .
-
-RUN ls -la /app/config/*
+COPY --from=BUILD_IMAGE /app/dist/ ./dist
+COPY --from=BUILD_IMAGE /app/node_modules/ ./node_modules
+COPY --from=BUILD_IMAGE /app/config/ ./config
 
 CMD ["node", "dist"]
 
