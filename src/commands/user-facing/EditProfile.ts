@@ -27,16 +27,19 @@ export abstract class EditProfile {
             return await sendMessage(message, embed);
         } else {
             const channels = jsonQuery('[name]', { data: message.guild?.channels.cache.array()}).value;
-            const channel_data = jsonQuery(`[name=${message.author.id}]`, { data: message.guild?.channels.cache.array()}).value;
-            const channel_id = jsonQuery('[id]', { data: channel_data}).value;
 
             embed.setTitle("Edit Profile");
-            embed.setDescription(`${replyTo} profile in editing mode. Make all changes in the channel <#${channel_id}> and use the command \`vf;update\` to submit those changes`);
 
             if (channels.includes(message.author.id)) {
-                console.log("channel already exists")
+                const channel_data = jsonQuery(`[name=${message.author.id}]`, { data: message.guild?.channels.cache.array()}).value;
+                const channel_id = jsonQuery('[id]', { data: channel_data}).value;
+                embed.setDescription(`${replyTo} profile already in editing mode. Make all changes in the channel <#${channel_id}> and use the command \`vf;update\` to submit those changes`);
             } else {
                 await Profile.createChannel(message);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const channel_data = jsonQuery(`[name=${message.author.id}]`, { data: message.guild?.channels.cache.array()}).value;
+                const channel_id = jsonQuery('[id]', { data: channel_data}).value;
+                embed.setDescription(`${replyTo} profile in editing mode. Make all changes in the channel <#${channel_id}> and use the command \`vf;update\` to submit those changes`);
             }
             return await sendMessage(message, embed);
         }
