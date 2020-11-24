@@ -21,6 +21,8 @@ export abstract class UpdateProfile {
 
         embed.setTitle("Profile Update")
 
+        // @todo: localize "update profile" command
+
         if (!channel_id.includes(message.channel.id)) {
             embed.setDescription(`${replyTo}, this command needs to be run in the channel <#${channel_id}>.`)
             return await sendMessage(message, embed);

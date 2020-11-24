@@ -18,6 +18,7 @@ export abstract class Cleanup {
         const numMessages = message.args.numMessages;
         const commandLocaleStrings = Locale.localeData.commands.cleanup;
 
+        // @todo: localize "cleanup" command
         if (!Permissions.checkAdmin(message)) {
             logger.info(`User ${message.author.id} attempted to use a command that requires admin permissions`)
             return await Permissions.checkFailed(message);

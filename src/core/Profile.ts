@@ -3,7 +3,7 @@ const logger = require("@src/core/Log").Log.logger;
 const jsonQuery = require('json-query');
 import {Constants} from "@src/core/Constants";
 import newEmbed from "@utils/embeds";
-
+import ChannelScreen from "@src/core/ChannelScreen";
 export abstract class Profile {
     static db = Firebase.datastore;
     static async create(id: string): Promise<void> {
@@ -52,15 +52,13 @@ export abstract class Profile {
         embed.addField("vf;birthday [yyyy-mm-dd]", "adds your birthday to your server profile. please use the format"+
                         "\"yyyy-mm-dd\" (ex: 1999-12-31)", false
         )
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const channel_data = jsonQuery(`[name=${message.author.id}]`, { data: message.guild?.channels.cache.array()}).value;
-        const channel_id = jsonQuery('[id]', { data: channel_data}).value;
-        console.log(channel_id);
+        await new Promise(resolve => setTimeout(resolve, 200));
+        let channel_id = await ChannelScreen.getChannelId(message.author.id, message);
         await message.client.channels.cache.get(channel_id).send(embed);
     }
 
     static async removeChannel(message: any): Promise<void> {
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 200));
         await message.channel.delete()
     }
 

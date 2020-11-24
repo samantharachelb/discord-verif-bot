@@ -21,7 +21,7 @@ export abstract class RemoveProfile {
 
         embed.setTitle("Remove Profile");
 
-
+        // @todo: localize "remove profile" command
         if (!Permissions.checkAdmin(message)) {
             embed.setTitle("Insufficient Permissions")
             embed.setDescription(`${replyTo}\n I'm sorry Dave, I can't let you do that.`);

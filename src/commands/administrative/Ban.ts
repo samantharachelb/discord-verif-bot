@@ -23,6 +23,7 @@ export abstract class Ban {
 
         embed.setTitle("Ban User");
 
+        // @todo: localize "ban" command
         if (!message.mentions.users.first()) {
             embed.setDescription(`${replyTo} ${localeStrings['ban-no-user']}`)
             return await sendMessage(message, embed);

@@ -20,6 +20,7 @@ export abstract class NewProfile {
         // check if a profile already exists
         const profileDoc = await dbRef.get();
 
+        // @todo: localize "new profile" command
         if(!profileDoc.exists) {
             await Profile.create(message.author.id);
             message.guild?.channels?.create(message.author.id, { type: "text"});

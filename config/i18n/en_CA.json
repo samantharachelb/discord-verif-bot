@@ -14,10 +14,19 @@
         "cleanup-missing-num": "You must specify the number of messages to delete.",
         "cleanup-success": "messages cleaned up."
       }
+    },
+    "verification": {
+      "addFacebook": {
+        "wrong-channel": "You must be in your profile editing channel to do this. You can access it here: "
+      }
     }
   },
   "generics": {
     "no-permission": "You're not allowed to do that.",
-    "error": "An error has occurred."
+    "error": "An error has occurred.",
+    "no-profile": "You currently do not have a profile for this discord server! Create one with the command:",
+    "profile-exists": "Cannot create a new profile because you already have one. Enter \"profile edit mode\" with the command:",
+    "profile-created": "A profile has been created for you, you can access it here:",
+    "profile-not-open": "A profile exists but you need to enable editing mode with the command:"
   }
 }
